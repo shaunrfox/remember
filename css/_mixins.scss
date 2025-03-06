@@ -1,0 +1,120 @@
+/*
+ * * * * * * * * * * * * * * * * * * *
+ * @mixins
+ * * * * * * * * * * * * * * * * * * *
+ */
+
+// Getting Source Sans and Bitter
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+// <weight>: Use a value from 200 to 900
+// <font-style>: normal, italic
+@mixin source-sans($weight: normal, $font-style: normal) {
+	font-family: "Source Sans 3", Verdana, Helvetica, Arial, sans-serif;
+	font-optical-sizing: auto;
+	font-weight: $weight;
+	font-style: $font-style;
+}
+
+@mixin bitter($weight: normal, $font-style: normal) {
+	font-family: "Bitter", serif;
+	font-optical-sizing: auto;
+	font-weight: $weight;
+	font-style: $font-style;
+}
+
+// Slightly lighten a color
+@function tint($color, $percentage) {
+  @return mix($color, white, $percentage);
+}
+
+// Slightly darken a color
+@function shade($color, $percentage) {
+  @return mix($color, black, $percentage);
+}
+
+
+// REM font-size with pixel backup
+@mixin font-size($size){
+	font-size: ($size * 10) + px;
+	font-size: $size + rem;
+}
+
+// Box shadows
+@mixin box-shadow ($shadows...) {
+	box-shadow: $shadows;
+	-moz-box-shadow: $shadows;
+	-webkit-box-shadow: $shadows;
+}
+
+// Uppercase, 600, letter-spaced
+@mixin uppercase {
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 1px;
+}
+
+// Truncate text
+@mixin truncate {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+// Make those words wrap, yo
+@mixin word-wrap() {
+	word-wrap: hyphenate;
+	word-wrap: break-word;
+	word-break: break-word;
+  hyphens: auto;
+}
+
+// Linear gradient (top to bottom)
+@mixin linear-gradient($from, $to) {
+	background-color: $to;
+	background-image: linear-gradient($from, $to);
+}
+
+// Remove browser default list styling (make sure to add your own)
+@mixin unstyled-list {
+	display: inline-block;
+	list-style: none;
+	list-style-type: none;
+	list-style-position: none;
+	border-bottom: none;
+	margin: 0;
+	padding: 0;
+
+	li { display: inline-block; }
+}
+
+// Remove browser default button styling (make sure to add your own)
+@mixin unstyled-button {
+	border: none;
+	border-image-source: none;
+	border-image-slice: none;
+	border-image-width: none;
+	border-image-outset: none;
+	border-image-repeat: none;
+	padding: 0;
+}
+
+// Prevent User Selection
+@mixin no-select() {
+	user-select: none;
+	cursor: default;
+}
+
+// Makes any element into a circle
+@mixin circle($diameter){
+	border-radius: 50%;
+	width: $diameter;
+	height: $diameter;
+}
+
+// Make a background image cover element
+@mixin background-image(){
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+}

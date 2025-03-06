@@ -1,0 +1,215 @@
+@import "css/main.scss";
+
+.container,
+.main-content,
+.memories,
+.memory {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1800px;
+  height: auto;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 50vh;
+  padding-bottom: 50vh;
+
+  // h1 {
+  //   // span across grid
+  //   grid-column: 1 / -1;
+  // }
+}
+
+.main-content {
+  padding: 4rem;
+  padding-top: 0;
+}
+
+.memories {
+  padding-top: 50vh;
+  // gap: 50vh;
+  // @include breakpoint(medium) {
+  //   gap: 1rem;
+  // }
+}
+
+.year {
+  display: flex;
+  flex-direction: column;
+  // gap: 50vh;
+  // display: grid;
+  // grid-template-columns: 40px 1fr;
+  align-items: baseline;
+
+  &::before {
+    display: block;
+    content: attr(data-year);
+    @include source-sans(500);
+    @include uppercase;
+    @include font-size(0.75);
+    color: tint($blue, 60);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 10px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba($white, 0.9);
+    z-index: 100;
+  }
+}
+
+.memory {
+  // grid-column: 2 / 3;
+  position: relative;
+  flex-direction: column;
+  @include bitter(400, italic);
+  @include font-size(1);
+  line-height: 1.8rem;
+  align-items: baseline;
+  // padding-top: 10px;
+  margin-bottom: 50vh;
+  background-color: pink;
+  // span {
+  //   padding-bottom: 1rem;
+  // }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -20px;
+    width: 5px;
+    background-color: $midnight;
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+
+  // used to highlight when the memory is in the viewport
+  &.active::before {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+  }
+
+  // @include breakpoint(medium) {
+  //   flex-direction: column;
+  //   gap: 0;
+  //   padding-left: 50px;
+  // }
+}
+
+// $years: 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026;
+
+// @each $year in $years {
+//   [data-year="#{$year}"] + [data-year="#{$year}"] {
+//     &::before {
+//       opacity: 0;
+//       @include breakpoint(medium) {
+//         display: none;
+//       }
+//     }
+//   }
+// }
+
+.i-remember {
+  @include source-sans(500);
+  @include uppercase;
+  @include font-size(0.75);
+  white-space: nowrap;
+  color: $mid-grey;
+}
+
+.wifey {
+  padding-left: 40px;
+  padding-top: 30px;
+
+  @include breakpoint(medium) {
+    padding-left: 50px;
+  }
+
+  p {
+    @include bitter(400, italic);
+    @include font-size(1);
+    line-height: 1.8rem;
+
+    &:first-child {
+      padding-top: 30px;
+      border-top: 1px dashed tint($blue, 60);
+    }
+  }
+}
+
+.scroll {
+  position: fixed;
+  top: 25%;
+  left: 0;
+  bottom: 25%;
+  background-color: $indigo;
+  width: 20px;
+}
+
+// .images {
+//   position: fixed;
+//   top: 0;
+//   right: 0;
+//   bottom: 10px;
+//   left: calc(50% + 2rem);
+//   height: 100%;
+//   background-position: center center;
+//   background-size: contain;
+//   background-repeat: no-repeat;
+// }
+
+.images {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 1000;
+  padding: 50px;
+  // background-color: $white;
+  background-color: #f7f4ec;
+  display: grid;
+  place-items: center;
+
+  .image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    display: grid;
+    place-items: center;
+    padding: 50px;
+    transition: opacity 300ms ease-in-out;
+
+    &.visible {
+      opacity: 1;
+      transition: opacity 300ms ease-in-out;
+    }
+  }
+
+  .image {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+    border: 15px solid $white;
+    border-bottom-width: 30px;
+    border-radius: 2px;
+    box-shadow: 2px 2px 5px rgba($black, 0.2);
+    transition: opacity 300ms ease-in-out;
+  }
+}
