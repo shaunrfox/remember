@@ -118,6 +118,32 @@ const elementPosition = (el) => {
   return position;
 };
 
+const showElement = (el) => {
+  let show = false;
+  const { top: elTop, bottom: elBottom } = el.getBoundingClientRect();
+  const { innerHeight } = window;
+
+  const viewport25 = innerHeight * 0.25;
+  const viewport50 = innerHeight * 0.5;
+
+  const topStart = 0;
+  const topEnd = viewport25;
+  const middleStart = topEnd;
+  const middleEnd = viewport25 + viewport50;
+  const bottomStart = middleEnd;
+  const bottomEnd = innerHeight;
+
+  if (elTop > bottomEnd && elBottom > bottomStart) {
+    show = true;
+  } else if (elTop > middleStart && elBottom > middleEnd) {
+    show = true;
+  } else {
+    show = false;
+  }
+
+  return show;
+};
+
 const isInViewport = (el) => {
   const { top, bottom } = el.getBoundingClientRect();
   const { innerHeight } = window;
@@ -130,7 +156,6 @@ const isInViewport = (el) => {
 };
 
 function renderImages(memoryElements, images) {
-  console.log("renderImages");
   memoryElements.forEach((memory) => {
     const imageSrc = memory.getAttribute("data-image");
     const imageID = memory.getAttribute("data-id");
@@ -149,24 +174,22 @@ function setupScrollListener(memoryElements, images, h1) {
   window.addEventListener("scroll", () => {
     const firstImageWrapper = images.querySelector("[data-id='firstImage']");
 
-    if (elementPosition(h1) === "middle") {
+    if (isInViewport(h1)) {
       firstImageWrapper.classList.add("visible");
     } else {
       firstImageWrapper.classList.remove("visible");
     }
 
     memoryElements.forEach((memory) => {
-      const imageSrc = memory.getAttribute("data-image");
       const imageID = memory.getAttribute("data-id");
 
       if (isInViewport(memory)) {
-        console.log("in viewport");
-      } else {
-        console.log("not in viewport");
+        console.log(imageID, "in viewport");
       }
 
-      if (elementPosition(memory) === "middle") {
+      if (isInViewport(memory)) {
         memory.classList.add("active");
+        console.log(imageID, "in viewport");
         const imageWrapper = document.querySelector(
           `.image-container[data-id="${imageID}"]`
         );
@@ -188,7 +211,7 @@ function setupScrollListener(memoryElements, images, h1) {
 
 // Move the initialization code into an async function
 async function initialize() {
-  debugVisibleArea();
+  // debugVisibleArea();
 
   // data
   const mems = await fetchJSONData("./memories.json");

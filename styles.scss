@@ -11,7 +11,7 @@
 .container {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   gap: 2rem;
   width: 100%;
   max-width: 1800px;
@@ -56,14 +56,14 @@
     @include uppercase;
     @include font-size(0.75);
     color: tint($blue, 60);
-    padding-top: 20px;
+    padding-top: 15vh;
     padding-bottom: 20px;
     padding-right: 10px;
     position: sticky;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: rgba($white, 0.9);
+    background-color: rgba($white, 0.98);
     z-index: 100;
   }
 }
@@ -76,9 +76,10 @@
   @include font-size(1);
   line-height: 1.8rem;
   align-items: baseline;
+  padding-left: 50px;
   // padding-top: 10px;
   margin-bottom: 50vh;
-  background-color: pink;
+  // background-color: pink;
   // span {
   //   padding-bottom: 1rem;
   // }
@@ -96,10 +97,10 @@
   }
 
   // used to highlight when the memory is in the viewport
-  &.active::before {
-    opacity: 1;
-    transition: opacity 300ms ease-in-out;
-  }
+  // &.active::before {
+  //   opacity: 1;
+  //   transition: opacity 300ms ease-in-out;
+  // }
 
   // @include breakpoint(medium) {
   //   flex-direction: column;
@@ -158,28 +159,16 @@
   width: 20px;
 }
 
-// .images {
-//   position: fixed;
-//   top: 0;
-//   right: 0;
-//   bottom: 10px;
-//   left: calc(50% + 2rem);
-//   height: 100%;
-//   background-position: center center;
-//   background-size: contain;
-//   background-repeat: no-repeat;
-// }
-
 .images {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 50%;
+  width: 66%;
   z-index: 1000;
   padding: 50px;
-  // background-color: $white;
-  background-color: #f7f4ec;
+  background-color: $white;
+  // background-color: #f7f4ec;
   display: grid;
   place-items: center;
 
@@ -206,10 +195,10 @@
     max-width: 100%;
     height: auto;
     max-height: 100%;
-    border: 15px solid $white;
-    border-bottom-width: 30px;
-    border-radius: 2px;
-    box-shadow: 2px 2px 5px rgba($black, 0.2);
+    // border: 15px solid $white;
+    // border-bottom-width: 30px;
+    // border-radius: 2px;
+    // box-shadow: 2px 2px 5px rgba($black, 0.2);
     transition: opacity 300ms ease-in-out;
   }
 }
