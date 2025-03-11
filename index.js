@@ -215,7 +215,7 @@ async function initialize() {
 
   // data
   const mems = await fetchJSONData("./memories.json");
-  // console.log({ mems });
+  console.log({ mems });
 
   // unique dates
   const dates = [...new Set(mems.memories.map((memory) => memory[0]))];
