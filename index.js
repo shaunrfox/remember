@@ -1,38 +1,13 @@
-// data
-// const mems = await fetchJSONData("./memories.json");
-// console.log({ mems });
-
-// unique dates
-// const dates = [...new Set(mems.memories.map((memory) => memory[0]))];
-// console.log({ dates });
-
-// target elements
-// const memsDiv = document.querySelector(".memories");
-// const images = document.querySelector(".images");
-// const memoryElements = document.querySelectorAll(".memory");
-// const h1 = document.querySelector("h1");
-
-/* ------------------------------------------------------------ */
-
-// fetch function
-function fetchJSONData(filePath) {
-  return fetch(filePath)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.error("Unable to fetch data:", error);
-    });
-}
-
-// decode html entities
-function decodeHtml(html) {
-  var txt = document.createElement("textarea");
-  txt.innerHTML = html;
-  return txt.value;
+async function fetchJSONData(filePath) {
+  try {
+    const response = await fetch(filePath);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Unable to fetch data:", error);
+  }
 }
 
 function createElement(elementType, className, innerText) {
@@ -62,7 +37,6 @@ function* genId() {
 
 let id = genId();
 
-// render grouped memories
 function renderGroupedMemories(groupedMemories, memsDiv) {
   groupedMemories.forEach(({ date, memories }) => {
     const dateWrapper = createElement("div", "year");
@@ -81,7 +55,6 @@ function renderGroupedMemories(groupedMemories, memsDiv) {
   });
 }
 
-// debug visible area
 function debugVisibleArea() {
   const body = document.querySelector("body");
   const scrollDiv = createElement("div", "scroll");
@@ -183,9 +156,9 @@ function setupScrollListener(memoryElements, images, h1) {
     memoryElements.forEach((memory) => {
       const imageID = memory.getAttribute("data-id");
 
-      if (isInViewport(memory)) {
-        console.log(imageID, "in viewport");
-      }
+      // if (isInViewport(memory)) {
+      //   console.log(imageID, "in viewport");
+      // }
 
       if (isInViewport(memory)) {
         memory.classList.add("active");
@@ -209,26 +182,21 @@ function setupScrollListener(memoryElements, images, h1) {
   });
 }
 
-// Move the initialization code into an async function
 async function initialize() {
   // debugVisibleArea();
 
-  // data
+  // get data
   const mems = await fetchJSONData("./memories.json");
   console.log({ mems });
 
-  // unique dates
+  // find unique dates
   const dates = [...new Set(mems.memories.map((memory) => memory[0]))];
-  // console.log({ dates });
 
   // target elements
   const memsDiv = document.querySelector(".memories");
   const images = document.querySelector(".images");
   const h1 = document.querySelector("h1");
 
-  // memoryText = memory[1]
-  // memoryImage = memory[2]
-  // group memoryText and memoryImage by date
   const groupedMemories = dates.map((date) => {
     return {
       date,
@@ -240,9 +208,7 @@ async function initialize() {
         })),
     };
   });
-  // console.log({ groupedMemories });
 
-  // render grouped memories
   renderGroupedMemories(groupedMemories, memsDiv);
 
   // Now that memories are rendered, we can select them and render images
