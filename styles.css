@@ -787,15 +787,18 @@ hr {
     display: grid;
     place-items: center;
     padding: 50px;
-    transition: opacity 300ms ease-in-out; }
+    transition: opacity 300ms ease-in-out;
+    z-index: -1; }
     .images .image-container.visible {
       opacity: 1;
-      transition: opacity 300ms ease-in-out; }
+      transition: opacity 300ms ease-in-out;
+      z-index: 1; }
   .images .image {
     width: auto;
     max-width: 100%;
     height: auto;
     max-height: 100%;
+    max-height: calc(100vh - 100px);
     transition: opacity 300ms ease-in-out; }
 
 /*# sourceMappingURL=styles.css.map */
